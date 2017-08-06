@@ -21,7 +21,7 @@ app = Flask(__name__)
 model = None
 prev_image_array = None
 
-MAX_SPEED = 30
+MAX_SPEED = 25
 MIN_SPEED = 6
 
 speed_limit = MAX_SPEED
@@ -30,14 +30,14 @@ speed_limit = MAX_SPEED
 def telemetry(sid, data):
     if data:
         # The current steering angle of the car
-        steering_angle = float(data["steering_angle"].replace(',','.'))
-        #steering_angle = float(data["steering_angle"])
+        #steering_angle = float(data["steering_angle"].replace(',','.'))
+        steering_angle = float(data["steering_angle"])
         # The current throttle of the car
-        throttle = float(data["throttle"].replace(',','.'))
-        #throttle = float(data["throttle"])
+        #throttle = float(data["throttle"].replace(',','.'))
+        throttle = float(data["throttle"])
         # The current speed of the car
-        speed = float(data["speed"].replace(',','.'))
-        #speed = float(data["speed"])
+        #speed = float(data["speed"].replace(',','.'))
+        speed = float(data["speed"])
         # The current image from the center camera of the car
         image = Image.open(BytesIO(base64.b64decode(data["image"])))
         try:
@@ -56,9 +56,9 @@ def telemetry(sid, data):
             else:
                 speed_limit = MAX_SPEED
             throttle = 1.0 - steering_angle**2 - (speed/speed_limit)**2
-
             print('{} {} {}'.format(steering_angle, throttle, speed))
-            send_control(str(steering_angle).replace('.',','), str(throttle).replace('.',','))
+            #send_control(str(steering_angle).replace('.',','), str(throttle).replace('.',','))
+            send_control(str(steering_angle),str(throttle))
         except Exception as e:
             print(e)
 
