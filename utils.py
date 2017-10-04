@@ -22,7 +22,7 @@ def crop(image):
     return image[60:-25, :, :] # remove the sky and the car front
 
 
-def resize(image):
+def resize(image1):
     """
     Resize the image to the input shape used by the network model
     """
